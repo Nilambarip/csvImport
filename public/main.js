@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#frmCSVImport").on("submit", function () {
+    $("#CSVImportForm").on("submit", function () {
         let response = $("#response");
         response.attr("class", "");
         response.html("");

@@ -1,17 +1,25 @@
 <?php
 namespace csvImport;
+use mysqli;
+
 class csvImportService{
 
-    public $connection;
+    /**
+     * @var DataSource
+     */
     public $db;
     /**
      * @var string
      */
-    private $type;
+    private $type='';
     /**
      * @var string
      */
-    private $message;
+    private $message='';
+    /**
+     * @var mysqli
+     */
+    private $connection;
 
     public function __construct()
     {
@@ -21,9 +29,9 @@ class csvImportService{
 
     /**
      * @param array $files
-     * @return string[]
+     * @return void
      */
-    final public function importCSV( array $files)
+    final public function importCSV( array $files):void
     {
         $fileName = $files["file"]["tmp_name"];
 
@@ -75,12 +83,29 @@ class csvImportService{
             }
         }
     }
-    public  function  getType()
+
+    /**
+     * @return string
+     */
+    final public  function  getType(): string
     {
         return $this->type;
     }
-    public  function  getMessage()
+
+    /**
+     * @return string
+     */
+    final public  function  getMessage(): string
     {
         return $this->message;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getUsers(): array
+    {
+        $sqlSelect = "SELECT * FROM users";
+        return $this->db->select($sqlSelect);
     }
 }

@@ -11,10 +11,10 @@ use mysqli_stmt;
  */
 class DataSource
 {
-    const HOST = 'localhost';
-    const USERNAME = 'root';
-    const PASSWORD = 'root';
-    const DATABASENAME = 'csvImport';
+    public const HOST = 'localhost';
+    public const USERNAME = 'root';
+    public const PASSWORD = 'root';
+    public const DATABASENAME = 'csvImport';
 
     private $connection;
 
@@ -68,9 +68,9 @@ class DataSource
 
         if (! empty($resultset)) {
             return $resultset;
-        }else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -97,7 +97,7 @@ class DataSource
      * @param string $paramType
      * @param array $paramArray
      */
-    final public function execute(string $query, string $paramType = "", array $paramArray = array()): array
+    final public function execute(string $query, string $paramType = "", array $paramArray = array()): void
     {
         $statement = $this->connection->prepare($query);
 
@@ -109,13 +109,13 @@ class DataSource
 
     /**
      * 1. Prepares parameter binding
-     * 2. Bind prameters to the sql statement
+     * 2. Bind parameters to the sql statement
      *
      * @param  mysqli_stmt $statement
      * @param string $paramType
      * @param array $paramArray
      */
-    final public function bindQueryParams( mysqli_stmt $statement, string $paramType, array $paramArray = array())
+    final public function bindQueryParams( mysqli_stmt $statement, string $paramType, array $paramArray = array()): void
     {
         $paramValueReference[] = & $paramType;
         foreach ($paramArray as $i => $iValue) {
